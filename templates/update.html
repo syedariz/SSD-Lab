@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Update</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url_for('hello_world') }}">Home</a>
+      </div>
+    </nav>
+    <div class="py-5 bg-primary bg-gradient text-white">
+      <div class="container">
+        <h1 class="display-4 fw-bold text-center mb-1">Syed Ariz Usman</h1>
+        <p class="lead text-center opacity-75 mb-0">Update your entry below</p>
+      </div>
+    </div>
+
+    <div class="container mt-3">
+      <h3>Update Entry #{{ person.id }}</h3>
+      <form action="{{ url_for('update', id=person.id) }}" method="POST">
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input type="text" class="form-control" id="title" name="title" value="{{ person.title }}" required>
+        </div>
+        <div class="mb-3">
+          <label for="content" class="form-label">Content</label>
+          <textarea class="form-control" id="content" name="content" rows="3" required>{{ person.content }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a class="btn btn-secondary" href="{{ url_for('hello_world') }}">Cancel</a>
+      </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  </body>
+</html>
