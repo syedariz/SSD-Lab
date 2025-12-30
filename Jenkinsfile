@@ -2,21 +2,33 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                echo 'Building..'
+                checkout scm
             }
         }
 
-        stage('Test') {
+        stage('Build & Install') {
             steps {
-                echo 'Testing..'
+                sh '''
+                    python3 -m venv venv
+                    . venv/bin/activate
+                    pip install -r requirements.txt
+                '''
             }
         }
 
-        stage('Deploy') {
+        stage('Unit Test') {
             steps {
-                echo 'Deploying....'
+                sh '''
+                    . venv/bin/activate
+                    pytest --junitxml=test-reports/results.xml
+                '''
+            }
+            post {
+                always {
+                    junit 'test-reports/results.xml'
+                }
             }
         }
     }
